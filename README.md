@@ -1,4 +1,4 @@
-# microsvc.in — Self-Hosted Platform Bootstrap
+# microservice.in — Self-Hosted Platform Bootstrap
 
 <p align="center">
   <img src="https://img.shields.io/badge/phases-9%2F9%20implemented-22c55e?style=flat-square" alt="phases"/>
@@ -18,7 +18,7 @@ Idempotent, resumable, phase-based automation that builds the full platform on a
 ## Platform architecture
 
 <p align="center">
-  <img src="architecture.svg" alt="microsvc.in platform architecture — 9-phase isometric diagram" width="900"/>
+  <img src="architecture.svg" alt="microservice.in platform architecture — 9-phase isometric diagram" width="900"/>
 </p>
 
 <p align="center"><sub>Each layer is a phase script under <code>phases/</code>. Layers build bottom-up — Foundation first, Validation last — and every step is idempotent, so re-running <code>run.sh</code> only touches what isn't already done.</sub></p>
@@ -43,6 +43,13 @@ Idempotent, resumable, phase-based automation that builds the full platform on a
 
 ## What gets built
 
+<p align="center">
+  <img src="what-gets-built.svg" alt="What gets built — 9 phase scripts, executed bottom-up by run.sh" width="950"/>
+</p>
+
+<details>
+<summary>Plain table version</summary>
+
 | # | Phase | Script | Delivers |
 |---|-------|--------|----------|
 | 1 | **Foundation** | `phase01-foundation.sh` | OS prep, sysctl tuning, K3s, Longhorn distributed storage |
@@ -54,6 +61,8 @@ Idempotent, resumable, phase-based automation that builds the full platform on a
 | 7 | **Quality & Security** | `phase07-quality-security.sh` | SonarQube, Kyverno, Cosign, SBOM/secret/dependency/container scan CI templates |
 | 8 | **Backup & DR** | `phase08-backup-dr.sh` | Velero, backup schedules, restore validation |
 | 9 | **Validation** | `phase09-validation.sh` | Health/TLS/DNS/GitOps/CI-CD/DR validation matrix, exit-code driven |
+
+</details>
 
 ## Design principles baked into every script
 
@@ -139,7 +148,7 @@ Validated by Phase 1 against `config/platform.env` before anything installs:
 
 ## Service endpoints
 
-All hosts hang off one `BASE_DOMAIN` (`microsvc.store` by default) and get wildcard TLS via cert-manager + DNS-01:
+All hosts hang off one `BASE_DOMAIN` (`microservice.in` by default) and get wildcard TLS via cert-manager + DNS-01:
 
 | Host | Service |
 |---|---|
